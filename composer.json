@@ -1,13 +1,21 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "cfalkner/resolution-library",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "ResolutionLibrary is a Laravel-based application designed to store and retrieve resolutions",
+    "authors": [
+        {
+            "name": "Christopher Falkner",
+            "email": "kontakt@cfalkner.dev",
+            "homepage": "https://cfalkner.dev",
+            "role": "Developer"
+        }
+    ],
     "keywords": [
         "laravel",
         "framework"
     ],
-    "license": "MIT",
+    "license": "proprietary",
     "require": {
         "php": "^8.2",
         "laravel/framework": "^12.0",

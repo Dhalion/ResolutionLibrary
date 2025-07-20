@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="description" content="ResolutionHub">
+    <meta name="description" content="ResolutionLibrary">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{ $head ?? '' }}
@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="/theme.css">
 
-    <title>@yield('title', 'ResolutionHub')</title>
+    <title>@yield('title', 'ResolutionLibrary')</title>
 </head>
 
 <body class="flex flex-col min-h-screen">

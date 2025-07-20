@@ -10,6 +10,8 @@
 
     @stack('head')
 
+    <link rel="stylesheet" href="/theme.css">
+
     <title>@yield('title', 'ResolutionHub')</title>
 </head>
 

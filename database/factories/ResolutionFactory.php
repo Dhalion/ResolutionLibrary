@@ -5,7 +5,6 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Resolution;
 use App\Models\Category;
-use App\Models\Organization;
 
 class ResolutionFactory extends Factory
 {
@@ -15,12 +14,11 @@ class ResolutionFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(3),
-            'tag' => $this->faker->word(),
+            'tag' => $this->faker->optional(0.8)->word(),
             'year' => $this->faker->year(),
-            'text' => $this->faker->paragraph(3),
+            'text' => $this->faker->paragraphs(3, true),
             'status' => $this->faker->randomElement(['draft', 'published', 'archived']),
-            'category_id' => Category::inRandomOrder()->first()->id ?? Category::factory(),
-            'council_id' => Organization::inRandomOrder()->first()->id ?? Organization::factory(),
+            'category_id' => Category::inRandomOrder()->first()?->id,
         ];
     }
 }

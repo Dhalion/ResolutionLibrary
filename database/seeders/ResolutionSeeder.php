@@ -3,22 +3,39 @@
 namespace Database\Seeders;
 
 use App\Models\Applicant;
+use App\Models\Category;
 use App\Models\Resolution;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ResolutionSeeder extends Seeder
 {
     public function run(): void
     {
-        $resolutions = Resolution::factory()->count(5000)->create();
+        // Ensure we have categories and applicants
+        $categoriesCount = Category::count();
+        $applicantsCount = Applicant::count();
+
+        if ($categoriesCount === 0) {
+            $this->command->warn('No categories found. Skipping resolution seeding.');
+            return;
+        }
+
+        if ($applicantsCount === 0) {
+            $this->command->warn('No applicants found. Skipping resolution seeding.');
+            return;
+        }
+
+        $this->command->info("Creating 100 resolutions with {$categoriesCount} categories and {$applicantsCount} applicants...");
+
+        $resolutions = Resolution::factory()->count(100)->create();
 
         $applicants = Applicant::all();
 
         $resolutions->each(function (Resolution $resolution) use ($applicants) {
-            $randomApplicantUuids = $applicants->random(rand(1, 5))->pluck('id')->all();
-
+            $randomApplicantUuids = $applicants->random(rand(1, 3))->pluck('id')->all();
             $resolution->applicants()->attach($randomApplicantUuids);
         });
+
+        $this->command->info('Resolutions created and linked to applicants successfully!');
     }
 }

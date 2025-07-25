@@ -17,11 +17,13 @@ class ResolutionSeeder extends Seeder
 
         if ($categoriesCount === 0) {
             $this->command->warn('No categories found. Skipping resolution seeding.');
+
             return;
         }
 
         if ($applicantsCount === 0) {
             $this->command->warn('No applicants found. Skipping resolution seeding.');
+
             return;
         }
 

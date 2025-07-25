@@ -13,19 +13,18 @@ class Resolution extends Model
 {
     use HasFactory, HasUuids, Searchable;
 
-
     protected $fillable = [
-        "title",
-        "tag",
-        "year",
-        "text",
-        "status",
-        "category_id",
-        "council_id",
+        'title',
+        'tag',
+        'year',
+        'text',
+        'status',
+        'category_id',
+        'council_id',
     ];
 
     protected $hidden = [
-        "text"
+        'text',
     ];
 
     public function category()
@@ -45,14 +44,13 @@ class Resolution extends Model
 
     public function createdBy()
     {
-        return $this->belongsTo(User::class, "createdBy");
+        return $this->belongsTo(User::class, 'createdBy');
     }
 
     public function updatedBy()
     {
-        return $this->belongsTo(User::class, "updatedBy");
+        return $this->belongsTo(User::class, 'updatedBy');
     }
-
 
     public function getResolutionCode(): string
     {
@@ -67,7 +65,7 @@ class Resolution extends Model
             'year' => $this->year,
             'text' => $this->text,
             'category_id' => $this->category->id,
-            'organisation_id' => $this->organisation->id,
+            'organisation_id' => $this->organisation?->id ?? null,
         ];
     }
 }

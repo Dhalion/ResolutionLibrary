@@ -13,13 +13,13 @@ class Applicant extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
-        "name",
-        "organisation_id",
+        'name',
+        'organisation_id',
     ];
 
     public function resolutions()
     {
-        return $this->belongsToMany(Resolution::class, "applicant_resolution");
+        return $this->belongsToMany(Resolution::class, 'applicant_resolution');
     }
 
     public function organisation()
@@ -29,7 +29,7 @@ class Applicant extends Model
 
     public function createdBy()
     {
-        return $this->belongsTo(User::class, "createdBy");
+        return $this->belongsTo(User::class, 'createdBy');
     }
 
     public function toSearchableArray()

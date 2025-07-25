@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
-        $this->command->info("✅ Test user created: test@example.com");
+        $this->command->info('✅ Test user created: test@example.com');
 
         // Seed in correct dependency order
         $this->command->info('🏢 Seeding organizations...');

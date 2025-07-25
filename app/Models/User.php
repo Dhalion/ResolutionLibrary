@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasUuids;
+    use HasFactory, HasUuids, Notifiable;
 
     protected $fillable = [
         'name',
@@ -21,7 +21,7 @@ class User extends Authenticatable
     ];
 
     protected $guarded = [
-        'admin'
+        'admin',
     ];
 
     protected $hidden = [

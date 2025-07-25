@@ -14,9 +14,9 @@ class Organization extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
-        "name",
-        "slug",
-        "shortName",
+        'name',
+        'slug',
+        'shortName',
     ];
 
     public function resolutions()

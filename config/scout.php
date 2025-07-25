@@ -101,7 +101,6 @@ return [
 
     'identify' => env('SCOUT_IDENTIFY', false),
 
-
     /*
     |--------------------------------------------------------------------------
     | Meilisearch Configuration

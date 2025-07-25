@@ -9,6 +9,7 @@ use Illuminate\Console\Command;
 class CompileTheme extends Command
 {
     protected $signature = 'theme:compile';
+
     protected $description = 'Generates a static CSS file with theme variables from the config.';
 
     public function handle()

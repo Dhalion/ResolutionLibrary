@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Laravel\Scout\Searchable;
 
 class Category extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, Searchable;
 
     protected $fillable = [
-        "name",
-        "tag",
-        "organization_id",
-        "image",
-        "slug",
+        'name',
+        'tag',
+        'organization_id',
+        'image',
+        'slug',
     ];
 
     protected $appends = [
-        "tagged_name"
+        'tagged_name',
     ];
 
     public function resolutions()
@@ -38,17 +38,17 @@ class Category extends Model
 
     public function createdBy()
     {
-        return $this->belongsTo(User::class, "createdBy");
+        return $this->belongsTo(User::class, 'createdBy');
     }
 
     public function updatedBy()
     {
-        return $this->belongsTo(User::class, "updatedBy");
+        return $this->belongsTo(User::class, 'updatedBy');
     }
 
     public function getTaggedNameAttribute()
     {
-        return ($this->attributes['tag'] ?? '') . " - " . ($this->attributes['name'] ?? '');
+        return ($this->attributes['tag'] ?? '').' - '.($this->attributes['name'] ?? '');
     }
 
     public function setNameAttribute($value)
@@ -57,8 +57,8 @@ class Category extends Model
 
         // Only set slug if not manually provided
         if (empty($this->attributes['slug'])) {
-            if (!empty($this->attributes['tag'])) {
-                $this->attributes['slug'] = Str::slug($this->attributes['tag'] . " - " . $value);
+            if (! empty($this->attributes['tag'])) {
+                $this->attributes['slug'] = Str::slug($this->attributes['tag'].' - '.$value);
             } else {
                 $this->attributes['slug'] = Str::slug($value);
             }
@@ -68,9 +68,10 @@ class Category extends Model
     public function getSlugAttribute($value)
     {
         if (is_null($value)) {
-            if (!empty($this->attributes['tag'])) {
-                return Str::slug($this->attributes['tag'] . " - " . $this->attributes['name']);
+            if (! empty($this->attributes['tag'])) {
+                return Str::slug($this->attributes['tag'].' - '.$this->attributes['name']);
             }
+
             return Str::slug($this->attributes['name'] ?? '');
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 return [
     'logo' => env('THEME_LOGO', '/images/default-logo.svg'),
     'primary_color' => env('THEME_PRIMARY_COLOR', '#FF750F'),

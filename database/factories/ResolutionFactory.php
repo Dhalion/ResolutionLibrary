@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Resolution;
 use App\Models\Category;
+use App\Models\Resolution;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ResolutionFactory extends Factory
 {

@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\PageMain;
+use App\Livewire\Page\MainPage\PageMain;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', PageMain::class)

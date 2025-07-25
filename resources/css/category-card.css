@@ -1,0 +1,6 @@
+.category-card {
+    @apply bg-white rounded-xl shadow hover:shadow-lg transition p-5 flex flex-col items-start border border-gray-100;
+}
+.category-card__tag {
+    @apply inline-block bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded mb-2;
+}

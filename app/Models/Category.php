@@ -48,34 +48,12 @@ class Category extends Model
 
     public function getTaggedNameAttribute()
     {
-        return ($this->attributes['tag'] ?? '').' - '.($this->attributes['name'] ?? '');
+        return ($this->attributes['tag'] ?? '') . ' - ' . ($this->attributes['name'] ?? '');
     }
 
-    public function setNameAttribute($value)
+    public function generateSlug(): string
     {
-        $this->attributes['name'] = $value;
-
-        // Only set slug if not manually provided
-        if (empty($this->attributes['slug'])) {
-            if (! empty($this->attributes['tag'])) {
-                $this->attributes['slug'] = Str::slug($this->attributes['tag'].' - '.$value);
-            } else {
-                $this->attributes['slug'] = Str::slug($value);
-            }
-        }
-    }
-
-    public function getSlugAttribute($value)
-    {
-        if (is_null($value)) {
-            if (! empty($this->attributes['tag'])) {
-                return Str::slug($this->attributes['tag'].' - '.$this->attributes['name']);
-            }
-
-            return Str::slug($this->attributes['name'] ?? '');
-        }
-
-        return $value;
+        return Str::slug(($this->tag ? $this->tag . ' ' : '') . $this->name, '-');
     }
 
     public function toSearchableArray()
@@ -86,5 +64,30 @@ class Category extends Model
             'tag' => $this->attributes['tag'] ?? null,
             'organization_id' => $this->attributes['organization_id'] ?? null,
         ];
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (Category $category): void {
+            if (empty($category->slug) && !empty($category->name)) {
+                $baseSlug = $category->generateSlug();
+                $slug = $baseSlug;
+                $count = 1;
+
+                while (static::where('slug', $slug)->exists()) {
+                    $slug = $baseSlug . '-' . $count;
+                    $count++;
+                }
+
+                $category->slug = $slug;
+            }
+        });
+    }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->where('slug', $value)->firstOrFail();
     }
 }

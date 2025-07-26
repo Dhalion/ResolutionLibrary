@@ -11,7 +11,6 @@ class ResolutionSeeder extends Seeder
 {
     public function run(): void
     {
-        // Ensure we have categories and applicants
         $categoriesCount = Category::count();
         $applicantsCount = Applicant::count();
 

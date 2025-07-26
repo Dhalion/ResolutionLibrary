@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('tag')->nullable();
             $table->foreignUuid('organization_id')->constrained()->onDelete('cascade');
             $table->string('image')->nullable();
-            $table->string('slug')->unique();
+            $table->string('slug')->unique()->nullable();
             $table->timestamps();
         });
     }

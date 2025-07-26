@@ -16,20 +16,16 @@ class CategoryFactory extends Factory
         $name = $this->faker->words(2, true);
         $tag = $this->faker->optional(0.7)->lexify('???');
 
-        // Generate slug based on whether we have a tag
-        $slug = $tag ? Str::slug($tag.' - '.$name) : Str::slug($name);
-
         return [
             'name' => $name,
             'tag' => $tag,
-            'slug' => $slug,
             'organization_id' => Organization::inRandomOrder()->first()?->id ?? Organization::factory(),
         ];
     }
 
     public function forOrganization(Organization $organization): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'organization_id' => $organization->getKey(),
         ]);
     }
@@ -37,11 +33,8 @@ class CategoryFactory extends Factory
     public function withTag(string $tag): static
     {
         return $this->state(function (array $attributes) use ($tag) {
-            $slug = Str::slug($tag.' - '.$attributes['name']);
-
             return [
                 'tag' => $tag,
-                'slug' => $slug,
             ];
         });
     }

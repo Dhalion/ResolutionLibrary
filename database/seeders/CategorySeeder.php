@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Organization;
+use App\Models\SeoUrl;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -28,9 +30,19 @@ class CategorySeeder extends Seeder
             ['name' => 'Economy', 'tag' => 'ECO'],
             ['name' => 'Technology', 'tag' => 'TEC'],
             ['name' => 'Social Affairs', 'tag' => 'SOC'],
+            ['name' => 'Culture', 'tag' => 'CUL'],
+            ['name' => 'Politics', 'tag' => 'POL'],
+            ['name' => 'Sports', 'tag' => 'SPT'],
+            ['name' => 'Travel', 'tag' => 'TRV'],
+            ['name' => 'Food', 'tag' => 'FOD'],
+            ['name' => 'Lifestyle', 'tag' => 'LIF'],
+            ['name' => 'Entertainment', 'tag' => 'ENT'],
+            ['name' => 'Business', 'tag' => 'BUS'],
+            ['name' => 'Science', 'tag' => 'SCI'],
         ];
 
         foreach ($organizations as $organization) {
+
             foreach ($categories as $categoryData) {
                 Category::factory()
                     ->forOrganization($organization)

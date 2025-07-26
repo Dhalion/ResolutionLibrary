@@ -89,7 +89,9 @@
                 "yzane.markdown-pdf",
                 "yzhang.markdown-all-in-one"
             ],
-            "settings": {}
+            "settings": {
+                "php.format.codeStyle": "PSR-12"
+            }
         }
     },
     "remoteUser": "sail",

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('text');
             $table->string('status')->default('draft');
             $table->foreignUuid('category_id')->nullable()->constrained()->onDelete('set null');
+            $table->string('slug')->unique()->nullable();
             $table->timestamps();
         });
     }

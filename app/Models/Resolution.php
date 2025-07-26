@@ -7,11 +7,43 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 
 class Resolution extends Model
 {
     use HasFactory, HasUuids, Searchable;
+
+    public function generateSlug(): string
+    {
+        $code = $this->getResolutionCode();
+
+        return Str::slug($code . ' ' . $this->title, '-');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function (Resolution $resolution): void {
+            if (empty($resolution->slug) && !empty($resolution->title)) {
+                $baseSlug = $resolution->generateSlug();
+                $slug = $baseSlug;
+                $count = 1;
+                while (static::where('slug', $slug)->exists()) {
+                    $slug = $baseSlug . '-' . $count;
+                    $count++;
+                }
+                $resolution->slug = $slug;
+            }
+        });
+    }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->where('slug', $value)
+            ->orWhere('id', $value)
+            ->firstOrFail();
+    }
 
     protected $fillable = [
         'title',
